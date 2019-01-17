@@ -17,5 +17,5 @@ steps:
     cd /home/vsts/work/1/s/aks-deploy-destination
     git status
     echo "git push with token"
-    git push https://$accesstoken@github.com/samiyaakhtar/aks-deploy-destination.git
+    git push https://$(accesstoken)@github.com/samiyaakhtar/aks-deploy-destination.git
 
