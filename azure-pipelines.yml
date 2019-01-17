@@ -13,4 +13,5 @@ steps:
   inputs:
     scriptPath: generate.sh
     accesstoken: $accesstoken
+    commitmessage: $Build.SourceVersionMessage
 

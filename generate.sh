@@ -9,6 +9,7 @@ fab install
 fab generate prod
 
 git --version
+cd /home/vsts/work/1/s/
 git clone https://github.com/samiyaakhtar/aks-deploy-destination.git
 cd aks-deploy-destination
 git checkout master
@@ -22,7 +23,7 @@ echo "setup author info"
 git config user.email "me@samiya.ca"
 git config user.name "azure-pipelines[bot]"
 echo "git commit with message"
-git commit --allow-empty -a -m "Updating files after commit - $(Build.SourceVersionMessage)"
+git commit --allow-empty -a -m "Updating files after commit - $COMMITMESSAGE"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
 echo "git push"
 git push https://$ACCESSTOKEN@github.com/samiyaakhtar/aks-deploy-destination.git
