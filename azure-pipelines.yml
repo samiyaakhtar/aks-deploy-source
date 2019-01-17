@@ -12,24 +12,5 @@ steps:
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
+    accesstoken: $accesstoken
 
-- script: |
-   git --version
-   git clone https://github.com/samiyaakhtar/aks-deploy-destination.git
-   cd aks-deploy-destination
-   git checkout master
-   
-   echo "Copying generated files"
-   rm -rf prod/
-   cp -r /home/vsts/work/1/s/generated/* .
-   echo "git add *"
-   git add *
-
-   echo "setup author info"
-   git config user.email "me@samiya.ca"
-   git config user.name "azure-pipelines[bot]"
-   echo "git commit with message"
-   git commit --allow-empty -a -m "Updating files after commit - $(Build.SourceVersionMessage)"
-   git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
-   echo "git push"
-   git push https://$(accesstoken)@github.com/samiyaakhtar/aks-deploy-destination.git
