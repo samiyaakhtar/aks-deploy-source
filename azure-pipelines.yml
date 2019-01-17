@@ -12,5 +12,5 @@ steps:
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
-    accesstoken: $accesstoken
+    accessToken: $ACCESS_TOKEN
 
