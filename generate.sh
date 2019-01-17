@@ -19,6 +19,7 @@ rm -rf prod/
 cp -r /home/vsts/work/1/s/generated/* .
 echo "git add *"
 git add *
+ls
 echo "setup author info"
 git config user.email "me@samiya.ca"
 git config user.name "azure-pipelines[bot]"
@@ -26,4 +27,4 @@ echo "git commit with message"
 git commit --allow-empty -a -m "Updating files after commit"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
 echo "git push with token $accesstoken"
-git push https://$accesstoken@github.com/samiyaakhtar/aks-deploy-destination.git
+git push https://%accesstoken%@github.com/samiyaakhtar/aks-deploy-destination.git
