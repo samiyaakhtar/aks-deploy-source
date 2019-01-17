@@ -5,10 +5,24 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- checkout: self
+  persistCredentials: true
+  clean: true
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script to start'
+- task: ShellScript@2
+  inputs:
+    scriptPath: build.sh
+
+- powershell: |
+   git --version
+   git clone https://github.com/samiyaakhtar/aks-deploy-destination.git
+   cd aks-deploy-destination
+   git checkout master
+   Write-Host "setup author info"
+   git config user.email "me@samiya.ca"
+   git config user.name "azure-pipelines[bot]"
+   Write-Host "git commit with message"
+   git commit --allow-empty -a -m "Updating yaml files as a test - Azure DevOps"
+   git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
+   Write-Host "git push"
+   git push https://$(accesstoken)@github.com/samiyaakhtar/aks-deploy-destination.git
