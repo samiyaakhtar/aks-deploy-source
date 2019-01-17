@@ -28,4 +28,4 @@ git commit --allow-empty -a -m "Updating files after commit"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
 git status
 echo "git push with token"
-git push https://$accesstoken@github.com/samiyaakhtar/aks-deploy-destination.git
+git push https://$ACCESS_TOKEN@github.com/samiyaakhtar/aks-deploy-destination.git
