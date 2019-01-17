@@ -25,4 +25,4 @@ echo "git commit with message"
 git commit --allow-empty -a -m "Updating files after commit - $(Build.SourceVersionMessage)"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
 echo "git push"
-git push https://$(accesstoken)@github.com/samiyaakhtar/aks-deploy-destination.git
+git push https://$ACCESSTOKEN@github.com/samiyaakhtar/aks-deploy-destination.git
