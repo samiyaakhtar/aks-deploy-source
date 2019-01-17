@@ -12,6 +12,8 @@ steps:
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
-  env:
-    ACCESS_TOKEN: $accesstoken
+
+- script: |
+    echo "git push with token"
+    git push https://$accesstoken@github.com/samiyaakhtar/aks-deploy-destination.git
 
