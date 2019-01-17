@@ -20,7 +20,7 @@ steps:
    git checkout master
    
    echo "Copying generated files"
-   cp -r /home/vsts/work/1/s/aks-deploy-source/generated/* /home/vsts/work/1/s/aks-deploy-destination
+   cp -r /home/vsts/work/1/s/generated/* .
    echo "git add *"
    git add *
 
