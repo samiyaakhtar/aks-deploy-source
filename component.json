@@ -1,0 +1,9 @@
+{
+    "name": "aks_deploy_source_infra",
+    "subcomponents": [
+        {
+            "name": "infra",
+            "source": "./infra"
+        }
+    ]
+}
