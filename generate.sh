@@ -26,4 +26,6 @@ git config user.name "azure-pipelines[bot]"
 echo "git commit with message"
 git commit --allow-empty -a -m "Updating files after commit"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
-pwd
+git status
+echo "git push with token"
+git push https://$accesstoken@github.com/samiyaakhtar/aks-deploy-destination.git
