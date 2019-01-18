@@ -24,7 +24,7 @@ echo "setup author info"
 git config user.email "me@samiya.ca"
 git config user.name "azure-pipelines[bot]"
 echo "git commit with message"
-git commit --allow-empty -a -m "Updating files after commit - $COMMIT_MESSAGE"
+git commit --allow-empty -a -m "Updating files post commit - $COMMIT_MESSAGE"
 git remote set-url origin git@github.com:samiyaakhtar/aks-deploy-destination.git
 git status
 echo "git push with token"
