@@ -14,6 +14,7 @@ steps:
     scriptPath: generate.sh
   env:
     ACCESS_TOKEN: $(accesstoken)
+    COMMIT_MESSAGE: $(Build.SourceVersionMessage)
 
 # - script: |
 #     cd /home/vsts/work/1/s/aks-deploy-destination
