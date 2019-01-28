@@ -23,6 +23,14 @@ echo "Running Fabrikate..."
 fab install
 fab generate prod
 
+# If generated folder is empty, quit
+if find "/home/vsts/work/1/s/generated" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
+    echo "Files have been generated"
+else
+    echo "Files could not be generated, quitting"
+    exit 1
+fi
+
 git --version
 cd /home/vsts/work/1/s/
 git clone https://github.com/samiyaakhtar/aks-deploy-destination.git

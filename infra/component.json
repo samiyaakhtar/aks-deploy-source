@@ -1,6 +1,15 @@
 {
     "name": "cloud-native-infra",
     "subcomponents": [
-        
+        {
+            "name": "elasticsearch-fluentd-kibana",
+            "source": "https://github.com/timfpark/fabrikate-elasticsearch-fluentd-kibana",
+            "method": "git"
+        },
+        {
+            "name": "prometheus-grafana",
+            "source": "https://github.com/timfpark/fabrikate-prometheus-grafana",
+            "method": "git"
+        }
     ]
 }
