@@ -1,7 +1,19 @@
 
 echo "Downloading Fabrikate..."
 cd /home/vsts/work/1/s/
-wget "https://github.com/Microsoft/fabrikate/releases/download/0.1.3/fab-v-linux-amd64.zip"
+
+if [ -z "$VERSION" ]
+then
+    VERSIONS=$(curl -s https://api.github.com/repos/Microsoft/fabrikate/tags)
+    LATEST_RELEASE=$(echo $VERSIONS | grep "name" | head -1)
+    LATEST_VERSION=`echo "$LATEST_RELEASE" | cut -d'"' -f 4`
+else
+    echo "Fabrikate Version: $VERSION"
+fi
+
+echo "Latest Fabrikate Version: $LATEST_VERSION"
+wget "https://github.com/Microsoft/fabrikate/releases/download/$LATEST_VERSION/fab-v-linux-amd64.zip"
+
 unzip fab-v-linux-amd64.zip -d fab
 export PATH=$PATH:/home/vsts/work/1/s/fab
 
