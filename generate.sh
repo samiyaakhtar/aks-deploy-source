@@ -24,6 +24,8 @@ fab install
 fab generate prod
 
 # If generated folder is empty, quit
+# In the case that all components are removed from the source hld, 
+# generated folder should still not be empty
 if find "/home/vsts/work/1/s/generated" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
     echo "Files have been generated"
 else
