@@ -1,5 +1,6 @@
 cd /home/vsts/work/1/s/
 
+helm init
 helm repo remove incubator && helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
 
 # If the version number is not provided, then download the latest
