@@ -34,8 +34,15 @@ else
 fi
 
 # extract repo name from repo url variable
-repo=${destination_repo_url##*/}
-echo "Repo name is $repo"
+re="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git$"
+if [[ $destination_repo_url =~ $re ]]; then    
+    protocol=${BASH_REMATCH[1]}
+    separator=${BASH_REMATCH[2]}
+    hostname=${BASH_REMATCH[3]}
+    user=${BASH_REMATCH[4]}
+    repo=${BASH_REMATCH[5]}
+fi
+echo "Repo name is extracted to be $repo, username $user"
 
 git --version
 cd /home/vsts/work/1/s/
