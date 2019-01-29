@@ -15,4 +15,3 @@ steps:
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
-    VERSION: 0.1.3
