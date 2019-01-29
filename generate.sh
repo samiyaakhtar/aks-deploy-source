@@ -17,6 +17,18 @@ wget "https://github.com/Microsoft/fabrikate/releases/download/$LATEST_VERSION/f
 unzip fab-v$LATEST_VERSION-linux-amd64.zip -d fab
 export PATH=$PATH:/home/vsts/work/1/s/fab
 
+# extract repo name from repo url variable
+re="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git$"
+if [[ $DESTINATION_REPO =~ $re ]]; then    
+    protocol=${BASH_REMATCH[1]}
+    separator=${BASH_REMATCH[2]}
+    hostname=${BASH_REMATCH[3]}
+    user=${BASH_REMATCH[4]}
+    repo=${BASH_REMATCH[5]}
+fi
+echo "Destination url is $DESTINATION_REPO"
+echo "Repo name is extracted to be $repo, username $user"
+
 set -e
 
 echo "Running Fabrikate..."
@@ -33,21 +45,9 @@ else
     exit 1
 fi
 
-# extract repo name from repo url variable
-re="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git$"
-if [[ $destination_repo_url =~ $re ]]; then    
-    protocol=${BASH_REMATCH[1]}
-    separator=${BASH_REMATCH[2]}
-    hostname=${BASH_REMATCH[3]}
-    user=${BASH_REMATCH[4]}
-    repo=${BASH_REMATCH[5]}
-fi
-echo "Destination url is $destination_repo_url"
-echo "Repo name is extracted to be $repo, username $user"
-
 git --version
 cd /home/vsts/work/1/s/
-git clone $destination_repo_url
+git clone $DESTINATION_REPO
 cd $repo
 git checkout master
 
