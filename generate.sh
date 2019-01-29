@@ -33,10 +33,15 @@ else
     exit 1
 fi
 
+# extract repo name from repo url variable
+basename=$(basename $destination_repo_url)
+filename=${basename%.*}
+echo "Repo name is $filename"
+
 git --version
 cd /home/vsts/work/1/s/
-git clone https://github.com/samiyaakhtar/aks-deploy-destination.git
-cd aks-deploy-destination
+git clone $destination_repo_url
+cd $filename
 git checkout master
 
 echo "Copying generated files"
