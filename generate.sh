@@ -4,8 +4,6 @@ echo "RUN HELM INIT"
 helm init
 echo "HELM ADD INCUBATOR"
 helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
-echo "HELM DEPENDENCY UPDATE"
-helm dependency update
 
 # If the version number is not provided, then download the latest
 if [ -z "$VERSION" ]
