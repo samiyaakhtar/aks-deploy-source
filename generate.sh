@@ -12,9 +12,8 @@ else
 fi
 
 echo "Latest Fabrikate Version: $LATEST_VERSION"
-wget "https://github.com/Microsoft/fabrikate/releases/download/$LATEST_VERSION/fab-v-linux-amd64.zip"
-
-unzip fab-v-linux-amd64.zip -d fab
+wget "https://github.com/Microsoft/fabrikate/releases/download/$LATEST_VERSION/fab-v$LATEST_VERSION-linux-amd64.zip"
+unzip fab-v$LATEST_VERSION-linux-amd64.zip -d fab
 export PATH=$PATH:/home/vsts/work/1/s/fab
 
 set -e
