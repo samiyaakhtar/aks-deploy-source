@@ -8,6 +8,7 @@ then
     LATEST_RELEASE=$(echo $VERSIONS | grep "name" | head -1)
     LATEST_VERSION=`echo "$LATEST_RELEASE" | cut -d'"' -f 4`
 else
+    LATEST_VERSION=$VERSION
     echo "Fabrikate Version: $VERSION"
 fi
 
