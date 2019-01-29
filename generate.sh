@@ -42,6 +42,7 @@ if [[ $destination_repo_url =~ $re ]]; then
     user=${BASH_REMATCH[4]}
     repo=${BASH_REMATCH[5]}
 fi
+echo "Destination url is $destination_repo_url"
 echo "Repo name is extracted to be $repo, username $user"
 
 git --version
