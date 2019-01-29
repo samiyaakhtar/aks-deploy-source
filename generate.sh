@@ -26,9 +26,9 @@ ls -a
 # In the case that all components are removed from the source hld, 
 # generated folder should still not be empty
 if find "/home/vsts/work/1/s/generated" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
-    echo "Files have been generated"
+    echo "Manifest files have been generated"
 else
-    echo "Files could not be generated, quitting"
+    echo "Manifest files could not be generated, quitting"
     exit 1
 fi
 
