@@ -15,4 +15,4 @@ steps:
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
-    DESTINATION_REPO: $(destination_repo_url)
+    AKS_MANIFEST_REPO: $(destination_repo_url)

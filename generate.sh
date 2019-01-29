@@ -1,39 +1,25 @@
-
-echo "Downloading Fabrikate..."
 cd /home/vsts/work/1/s/
 
+# If the version number is not provided, then download the latest
 if [ -z "$VERSION" ]
 then
     VERSIONS=$(curl -s https://api.github.com/repos/Microsoft/fabrikate/tags)
     LATEST_RELEASE=$(echo $VERSIONS | grep "name" | head -1)
     LATEST_VERSION=`echo "$LATEST_RELEASE" | cut -d'"' -f 4`
 else
-    LATEST_VERSION=$VERSION
     echo "Fabrikate Version: $VERSION"
 fi
 
+echo "Downloading Fabrikate..."
 echo "Latest Fabrikate Version: $LATEST_VERSION"
 wget "https://github.com/Microsoft/fabrikate/releases/download/$LATEST_VERSION/fab-v$LATEST_VERSION-linux-amd64.zip"
 unzip fab-v$LATEST_VERSION-linux-amd64.zip -d fab
 export PATH=$PATH:/home/vsts/work/1/s/fab
-
-# extract repo name from repo url variable
-re="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+).git$"
-if [[ $DESTINATION_REPO =~ $re ]]; then    
-    protocol=${BASH_REMATCH[1]}
-    separator=${BASH_REMATCH[2]}
-    hostname=${BASH_REMATCH[3]}
-    user=${BASH_REMATCH[4]}
-    repo=${BASH_REMATCH[5]}
-fi
-echo "Destination url is $DESTINATION_REPO"
-echo "Repo name is extracted to be $repo, username $user"
-
-set -e
-
-echo "Running Fabrikate..."
 fab install
+
 fab generate prod
+echo "FAB GENERATE PROD COMPLETED"
+ls -a
 
 # If generated folder is empty, quit
 # In the case that all components are removed from the source hld, 
@@ -45,24 +31,41 @@ else
     exit 1
 fi
 
-git --version
+# Clone the destination repo
 cd /home/vsts/work/1/s/
-git clone $DESTINATION_REPO
-cd $repo
-git checkout master
+echo "GIT CLONE"
+git clone https://github.com/$AKS_MANIFEST_REPO.git
+repo_url=https://github.com/$AKS_MANIFEST_REPO.git
 
-echo "Copying generated files"
+# Extract repo name from url
+repo=${repo_url##*/}
+echo "REPO:$repo"
+repo_name=${repo%.*}
+echo "REPO_NAME:$repo_name"
+cd $repo_name
+
+echo "GIT CHECKOUT"
+git checkout master
+echo "GIT STATUS"
+git status
+echo "Copy yaml files to repo directory..."
 rm -rf prod/
 cp -r /home/vsts/work/1/s/generated/* .
-echo "git add *"
+ls /home/vsts/work/1/s/$repo_name
+echo "GIT ADD"
 git add *
-ls
-echo "setup author info"
-git config user.email "me@samiya.ca"
-git config user.name "azure-pipelines[bot]"
-echo "git commit with message"
-git commit --allow-empty -a -m "Updating files post commit - $COMMIT_MESSAGE"
-git remote set-url origin git@github.com:$user/$repo.git
+
+# Set git identity 
+git config user.email "admin@azuredevops.com"
+git config user.name "Automated Account"
+
+echo "GIT COMMIT"
+git commit -m "Updated k8s manifest files post commit: $COMMIT_MESSAGE"
+echo "GIT STATUS" 
 git status
-echo "git push with token"
-git push https://$ACCESS_TOKEN@github.com/$user/$repo.git
+echo "GIT PULL" 
+git pull
+echo "GIT PUSH"
+git push https://$ACCESS_TOKEN@github.com/$AKS_MANIFEST_REPO.git
+echo "GIT STATUS"
+git status
