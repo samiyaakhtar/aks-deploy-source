@@ -34,14 +34,13 @@ else
 fi
 
 # extract repo name from repo url variable
-basename=$(basename $destination_repo_url)
-filename=${basename%.*}
-echo "Repo name is $filename"
+repo=${destination_repo_url##*/}
+echo "Repo name is $repo"
 
 git --version
 cd /home/vsts/work/1/s/
 git clone $destination_repo_url
-cd $filename
+cd $repo
 git checkout master
 
 echo "Copying generated files"
