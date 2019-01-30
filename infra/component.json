@@ -12,8 +12,8 @@
             "method": "git"
         },
         {
-            "name": "jaeger",
-            "source": "https://github.com/bnookala/fabrikate-jaeger",
+            "name": "istio",
+            "source": "https://github.com/evanlouie/fabrikate-istio",
             "method": "git"
         }
     ]
