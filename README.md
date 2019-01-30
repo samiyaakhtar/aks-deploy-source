@@ -9,7 +9,9 @@ Setup azure pipelines on the source repository by creating a new build pipeline 
 
 1. Copy `generate.sh` into root folder of your project
 2. Go into pipeline settings and add a new variable called `accesstoken` and set the value to your personal access token. Make sure the variable is set to secret. 
-3. Update the azure-pipelines.yml file to look like the following
+3. Add a variable `destination_repo_url` and set it to the destination repo, for eg. `samiyaakhtar/aks-deploy-destination`
+4. Update the azure-pipelines.yml file to look like the following
+
 ```
 trigger:
 - master
@@ -28,6 +30,7 @@ steps:
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
+    AKS_MANIFEST_REPO: $(destination_repo_url)
 ```
 This makes sure after every commit the source code will be checked out, yaml generated and the files will be placed in the second repo. 
 
