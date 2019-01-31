@@ -17,6 +17,7 @@ steps:
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
