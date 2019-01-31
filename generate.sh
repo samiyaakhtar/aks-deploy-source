@@ -132,10 +132,10 @@ function verify() {
 }
 
 echo "argument is ${1}"
-if [ "${1}" != "--source-only" ]; then
-    verify_and_push "${@}"
-elif [ "${1}" == "--verify-only" ]; then
+if [ "${1}" == "--verify-only" ]; then
     verify
+elif [ "${1}" != "--source-only" ]; then
+    verify_and_push "${@}"
 else
     verify_and_push
 fi
