@@ -17,8 +17,6 @@ Setup azure pipelines on the source repository by creating a new build pipeline 
 trigger:
 - master
 
-pr: none
-
 pool:
   vmImage: 'Ubuntu-16.04'
 
@@ -27,15 +25,14 @@ steps:
   persistCredentials: true
   clean: true
 
-- task: ShellScript@2
-  inputs:
-    scriptPath: generate.sh
-    arguments: --verify-only
+- bash: |
+    chmod +x ./generate.sh && ./generate.sh --verify-only
   condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
+  condition: ne(variables['Build.Reason'], 'PullRequest')
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
