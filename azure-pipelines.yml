@@ -10,7 +10,10 @@ steps:
   clean: true
 
 - bash: |
-    sh generate.sh --verify-only
+    chmod +x ./generate.sh
+
+- bash: |
+    ./generate.sh --verify-only
   condition: ne(variables['Build.Reason'], 'PullRequest')
 
 - task: ShellScript@2
