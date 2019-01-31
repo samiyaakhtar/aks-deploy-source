@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function copy_files() {
     cp -r * $HOME/
     cd $HOME
