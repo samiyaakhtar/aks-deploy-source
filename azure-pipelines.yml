@@ -18,6 +18,7 @@ steps:
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
+    options: --verify-only
   condition: ne(variables['Build.Reason'], 'PullRequest')
   env:
     ACCESS_TOKEN: $(accesstoken)
