@@ -10,6 +10,7 @@ Setup azure pipelines on the source repository by creating a new build pipeline 
 1. Copy `generate.sh` into root folder of your project
 2. Go into pipeline settings and add a new variable called `accesstoken` and set the value to your personal access token. Make sure the variable is set to secret. 
 3. Update the azure-pipelines.yml file to look like the following
+
 ```
 trigger:
 - master
