@@ -21,3 +21,4 @@ steps:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
     AKS_MANIFEST_REPO: $(destination_repo_url)
+    VERSION: 0.1.3
