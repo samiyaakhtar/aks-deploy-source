@@ -1,0 +1,16 @@
+trigger:
+- master
+
+pr: none
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- checkout: self
+  persistCredentials: true
+  clean: true
+
+- task: ShellScript@2
+  inputs:
+    scriptPath: verify.sh

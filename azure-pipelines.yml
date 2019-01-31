@@ -11,6 +11,9 @@ steps:
   persistCredentials: true
   clean: true
 
+- ${{ if and(succeeded(), eq(variables['Build.Reason'], 'PullRequest')) }}:
+  - template: verify.yml
+
 - task: ShellScript@2
   inputs:
     scriptPath: generate.sh
