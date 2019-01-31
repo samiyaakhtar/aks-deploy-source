@@ -16,6 +16,8 @@ Setup azure pipelines on the source repository by creating a new build pipeline 
 trigger:
 - master
 
+pr: none
+
 pool:
   vmImage: 'Ubuntu-16.04'
 
@@ -26,11 +28,17 @@ steps:
 
 - task: ShellScript@2
   inputs:
+    scriptPath: verify.sh
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+
+- task: ShellScript@2
+  inputs:
     scriptPath: generate.sh
   env:
     ACCESS_TOKEN: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
     AKS_MANIFEST_REPO: $(destination_repo_url)
+
 ```
 This makes sure after every commit the source code will be checked out, yaml generated and the files will be placed in the second repo. 
 
