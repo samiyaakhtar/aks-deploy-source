@@ -7,7 +7,7 @@ First we need to create a personal access token which will be used to push to th
 
 Setup azure pipelines on the source repository by creating a new build pipeline in Pipelines > Builds:
 
-1. Copy `generate.sh` into root folder of your project
+1. Copy `generate.sh` and `verify.sh` into root folder of your project. `generate.sh` is the post commit script that pushes new yaml files into the destination repo, and `verify.sh` is the verification script that runs before a PR can be checked into this repo. It does not push yaml files into the destination but makes sure they can be generated successfully.
 2. Go into pipeline settings and add a new variable called `accesstoken` and set the value to your personal access token. Make sure the variable is set to secret. 
 3. Add a variable `destination_repo_url` and set it to the destination repo, for eg. `samiyaakhtar/aks-deploy-destination`
 4. Update the azure-pipelines.yml file to look like the following
