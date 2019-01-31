@@ -108,7 +108,8 @@ function git_push() {
 }
 
 # Run functions
-function main() {
+function verify_and_push() {
+    echo "Starting verify_and_push function"
     copy_files
     helm_init
     get_fab_version
@@ -132,4 +133,6 @@ if [ "${1}" != "--source-only" ]; then
     main "${@}"
 elif [ "${1}" != "--verify-only" ]; then
     verify
+else
+    verify_and_push
 fi
