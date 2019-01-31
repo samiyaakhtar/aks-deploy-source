@@ -129,6 +129,7 @@ function verify() {
     fab_generate
 }
 
+echo "argument is ${1}"
 if [ "${1}" != "--source-only" ]; then
     verify_and_push "${@}"
 elif [ "${1}" == "--verify-only" ]; then
