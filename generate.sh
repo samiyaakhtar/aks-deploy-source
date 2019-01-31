@@ -130,8 +130,8 @@ function verify() {
 }
 
 if [ "${1}" != "--source-only" ]; then
-    main "${@}"
-elif [ "${1}" != "--verify-only" ]; then
+    verify_and_push "${@}"
+elif [ "${1}" == "--verify-only" ]; then
     verify
 else
     verify_and_push
