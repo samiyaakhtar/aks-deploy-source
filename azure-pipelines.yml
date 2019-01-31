@@ -9,7 +9,7 @@ steps:
   persistCredentials: true
   clean: true
 
-- script: generate.sh --verify-only
+- script: sh generate.sh --verify-only
   condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - task: ShellScript@2
