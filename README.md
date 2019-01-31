@@ -44,6 +44,5 @@ This makes sure after every commit the source code will be checked out, yaml gen
 
 4. Make a test commit to the source repo and make sure the pipeline gets executed, and files end up in the destination repo. 
 
-test test
 
 
