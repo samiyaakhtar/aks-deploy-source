@@ -38,6 +38,7 @@ function download_fab() {
     echo "Latest Fabrikate Version: $VERSION_TO_DOWNLOAD"
     wget "https://github.com/Microsoft/fabrikate/releases/download/$VERSION_TO_DOWNLOAD/fab-v$VERSION_TO_DOWNLOAD-linux-amd64.zip"
     unzip fab-v$VERSION_TO_DOWNLOAD-linux-amd64.zip -d fab
+    ls
     export PATH=$PATH:$HOME/fab
     fab install
     echo "FAB INSTALL COMPLETED"
