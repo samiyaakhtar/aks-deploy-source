@@ -34,12 +34,26 @@ function get_fab_version() {
     fi
 }
 
+function get_os() {
+    if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        $1='linux'
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        $1='darwin18'
+    elif [[ "$OSTYPE" == "msys" ]]; then
+        $1='windows'
+    else
+        $1='linux'
+    fi
+}
+
 # Download Fabrikate and install
 function download_fab() {
     echo "DOWNLOADING FABRIKATE..."
     echo "Latest Fabrikate Version: $VERSION_TO_DOWNLOAD"
-    wget "https://github.com/Microsoft/fabrikate/releases/download/$VERSION_TO_DOWNLOAD/fab-v$VERSION_TO_DOWNLOAD-linux-amd64.zip"
-    unzip fab-v$VERSION_TO_DOWNLOAD-linux-amd64.zip -d fab
+    os=''
+    get_os os
+    wget "https://github.com/Microsoft/fabrikate/releases/download/$VERSION_TO_DOWNLOAD/fab-v$VERSION_TO_DOWNLOAD-$os-amd64.zip"
+    unzip fab-v$VERSION_TO_DOWNLOAD-$os-amd64.zip -d fab
     ls
     export PATH=$PATH:$HOME/fab
     fab install
