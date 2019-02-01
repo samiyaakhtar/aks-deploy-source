@@ -27,7 +27,7 @@ steps:
 
 - bash: |
     chmod +x ./generate.sh && ./generate.sh --verify-only
-  condition: eq(variables['Build.Reason'], 'PullRequest')
+    condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - task: ShellScript@2
   inputs:
