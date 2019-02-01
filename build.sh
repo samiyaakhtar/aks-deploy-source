@@ -36,13 +36,13 @@ function get_fab_version() {
 
 function get_os() {
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
-        $1='linux'
+        eval "$1='linux'"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        $1='darwin18'
+        eval "$1='darwin18'"
     elif [[ "$OSTYPE" == "msys" ]]; then
-        $1='windows'
+        eval "$1='windows'"
     else
-        $1='linux'
+        eval "$1='linux'"
     fi
 }
 
