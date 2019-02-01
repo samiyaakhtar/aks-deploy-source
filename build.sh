@@ -109,27 +109,24 @@ function git_push() {
     git status
 }
 
-# Run functions
-function verify_and_push() {
-    echo "Starting verify_and_push function"
+function verify() {
+    echo "Starting verification"
     copy_files
     helm_init
     get_fab_version
     download_fab
     fab_generate
+}
+
+# Run functions
+function verify_and_push() {
+    verify
+    echo "Verification complete, push to yaml repo"
     git_connect
     git_commit
     git_push
 }
 
-function verify() {
-    echo "Starting verification for pull request"
-    copy_files
-    helm_init
-    get_fab_version
-    download_fab
-    fab_generate
-}
 
 echo "argument is ${1}"
 if [ "${1}" == "--verify-only" ]; then
