@@ -7,8 +7,6 @@ function copy_files() {
 
 # Initialize Helm
 function helm_init() {
-    # Run this command to make script exit on any failure
-    set -e
     echo "RUN HELM INIT"
     helm init
     echo "HELM ADD INCUBATOR"
@@ -58,6 +56,8 @@ function download_fab() {
     unzip fab-v$VERSION_TO_DOWNLOAD-$os-amd64.zip -d fab
     ls
     export PATH=$PATH:$HOME/fab
+    # Run this command to make script exit on any failure
+    set -e
     fab install
     echo "FAB INSTALL COMPLETED"
 }
