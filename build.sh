@@ -56,6 +56,7 @@ function download_fab() {
     unzip fab-v$VERSION_TO_DOWNLOAD-$os-amd64.zip -d fab
     ls
     export PATH=$PATH:$HOME/fab
+    set -e
     fab install
     echo "FAB INSTALL COMPLETED"
 }
