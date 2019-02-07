@@ -77,6 +77,7 @@ function fab_generate() {
     fab generate prod
     echo "FAB GENERATE COMPLETED"
     ls -a
+    set +e
 
     # If generated folder is empty, quit
     # In the case that all components are removed from the source hld, 
