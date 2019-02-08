@@ -38,7 +38,6 @@ steps:
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
     AKS_MANIFEST_REPO: $(destination_repo_url)
 ```
-
 This makes sure after every commit the source code will be checked out, yaml generated and the files will be placed in the second repo. 
 
 
