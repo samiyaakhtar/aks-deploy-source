@@ -10,15 +10,26 @@ steps:
   clean: true
 
 - bash: |
-    chmod +x ./build.sh && ./build.sh --verify-only
-  condition: eq(variables['Build.Reason'], 'PullRequest')
+    curl $BEDROCK_BUILD_SCRIPT > build.sh
+    chmod +x ./build.sh
+  displayName: Download Bedrock orchestration script
+  env:
+    BEDROCK_BUILD_SCRIPT: https://raw.githubusercontent.com/Microsoft/bedrock/master/gitops/azure-devops/build.sh
 
 - task: ShellScript@2
+  displayName: Validate fabrikate definitions
+  inputs:
+    scriptPath: build.sh
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+  env:
+    VERIFY_ONLY: 1
+
+- task: ShellScript@2
+  displayName: Transform fabrikate definitions and publish to YAML manifests to repo
   inputs:
     scriptPath: build.sh
   condition: ne(variables['Build.Reason'], 'PullRequest')
   env:
-    ACCESS_TOKEN: $(accesstoken)
+    ACCESS_TOKEN_SECRET: $(accesstoken)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
     AKS_MANIFEST_REPO: $(destination_repo_url)
-    VERSION: 0.1.4
