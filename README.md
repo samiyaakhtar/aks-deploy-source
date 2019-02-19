@@ -8,9 +8,9 @@ First we need to create a personal access token which will be used to push to th
 
 Setup azure pipelines on the source repository by creating a new build pipeline in Pipelines > Builds:
 
-1. Copy `generate.sh` and `verify.sh` into root folder of your project. `generate.sh` is the post commit script that pushes new yaml files into the destination repo, and `verify.sh` is the verification script that runs before a PR can be checked into this repo. It does not push yaml files into the destination but makes sure they can be generated successfully.
-2. Go into pipeline settings and add a new variable called `accesstoken` and set the value to your personal access token. Make sure the variable is set to secret. 
-3. Add a variable `destination_repo_url` and set it to the destination repo, for eg. `samiyaakhtar/aks-deploy-destination`
+1. Copy the code below for `azure-pipelines.yml` into root folder of your project. 
+2. Go into pipeline settings and add a new variable called `access_token` and set the value to your personal access token. Make sure the variable is set to secret. 
+3. Add a variable `aks_manifest_repo` and set it to the destination repo, for eg. `samiyaakhtar/aks-deploy-destination`
 4. Update the azure-pipelines.yml file to look like the following
 
 ```
@@ -26,19 +26,31 @@ steps:
   clean: true
 
 - bash: |
-    chmod +x ./generate.sh && ./generate.sh --verify-only
-    condition: eq(variables['Build.Reason'], 'PullRequest')
+    curl $BEDROCK_BUILD_SCRIPT > build.sh
+    chmod +x ./build.sh
+  displayName: Download Bedrock orchestration script
+  env:
+    BEDROCK_BUILD_SCRIPT: https://raw.githubusercontent.com/Microsoft/bedrock/master/gitops/azure-devops/build.sh
 
 - task: ShellScript@2
+  displayName: Validate fabrikate definitions
   inputs:
-    scriptPath: generate.sh
+    scriptPath: build.sh
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+  env:
+    VERIFY_ONLY: 1
+
+- task: ShellScript@2
+  displayName: Transform fabrikate definitions and publish to YAML manifests to repo
+  inputs:
+    scriptPath: build.sh
   condition: ne(variables['Build.Reason'], 'PullRequest')
   env:
-    ACCESS_TOKEN: $(accesstoken)
+    ACCESS_TOKEN_SECRET: $(ACCESS_TOKEN)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
-    AKS_MANIFEST_REPO: $(destination_repo_url)
+    AKS_MANIFEST_REPO: $(aks_manifest_repo)
 ```
 
-This makes sure after every commit the source code will be checked out, yaml generated and the files will be placed in the second repo. 
+**NOTE**: Besure to set the **aks_manifest_repo** variable value with the absolute URL to your manifest repo, (i.e. https://dev.azure.com/abrig/bedrock_gitops/_git/manifest_repo)  and the **access_token** with the personal access token you generated.
 
-4. Make a test commit to the source repo and make sure the pipeline gets executed, and files end up in the destination repo. 
+For rest of the instructions, refer to the full documentation [here](https://github.com/Microsoft/bedrock/tree/master/gitops/azure-devops)
