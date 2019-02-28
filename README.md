@@ -51,6 +51,7 @@ steps:
     AKS_MANIFEST_REPO: $(aks_manifest_repo)
 ```
 
+
 **NOTE**: Besure to set the **aks_manifest_repo** variable value with the absolute URL to your manifest repo, (i.e. https://dev.azure.com/abrig/bedrock_gitops/_git/manifest_repo)  and the **access_token** with the personal access token you generated.
 
 For rest of the instructions, refer to the full documentation [here](https://github.com/Microsoft/bedrock/tree/master/gitops/azure-devops)
