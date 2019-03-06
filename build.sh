@@ -90,7 +90,13 @@ function install_fab() {
 
 # Run fab generate
 function fab_generate() {
-    fab generate prod --no-validation
+    IFS=',' read -ra ENV <<< "$FAB_ENVS"
+    for i in "${ENV[@]}"; do
+        echo "FAB GENERATE $i"
+        fab generate $i --no-validation
+    done
+
+    # fab generate prod --no-validation
     echo "FAB GENERATE COMPLETED"
     
     set +e
