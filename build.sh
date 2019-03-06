@@ -91,11 +91,13 @@ function install_fab() {
 # Run fab generate
 function fab_generate() {
     # For backwards compatibility, support pipelines that have not set this variable
+    echo "CHECKING FABRIKATE ENVIRONMENTS"
     if [ -z "$FAB_ENVS" ]; then 
-        echo "FAB_ENVS is not set"; 
+        echo "FAB_ENVS is not set" 
+        echo "FAB GENERATE prod"
         fab generate prod --no-validation
     else 
-        echo "FAB_ENVS is set to $FAB_ENVS"; 
+        echo "FAB_ENVS is set to $FAB_ENVS" 
         IFS=',' read -ra ENV <<< "$FAB_ENVS"
         for i in "${ENV[@]}"; do
             echo "FAB GENERATE $i"
@@ -142,8 +144,10 @@ function git_commit() {
     git checkout master
     echo "GIT STATUS"
     git status
+    echo "GIT REMOVE"
+    rm -rf ./*/
+    git rm *
     echo "COPY YAML FILES TO REPO DIRECTORY..."
-    rm -rf prod/
     cp -r $HOME/generated/* .
     echo "GIT ADD"
     git add *
@@ -152,11 +156,14 @@ function git_commit() {
     git config user.email "admin@azuredevops.com"
     git config user.name "Automated Account"
 
-    echo "GIT COMMIT"
-    git commit -m "Updated k8s manifest files post commit: $COMMIT_MESSAGE"
-    retVal=$? && [ $retVal -ne 0 ] && exit $retVal
-    echo "GIT STATUS" 
-    git status
+    if [[ `git status --porcelain` ]]; then
+        echo "GIT COMMIT"
+        git commit -m "Updated k8s manifest files post commit: $COMMIT_MESSAGE"
+        retVal=$? && [ $retVal -ne 0 ] && exit $retVal
+    else
+        echo "NOTHING TO COMMIT"
+    fi
+    
     echo "GIT PULL" 
     git pull
 }
