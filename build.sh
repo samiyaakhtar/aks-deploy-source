@@ -145,8 +145,7 @@ function git_commit() {
     echo "GIT STATUS"
     git status
     echo "GIT REMOVE"
-    rm -rf ./*/
-    git rm *
+    rm -r */
     echo "COPY YAML FILES TO REPO DIRECTORY..."
     cp -r $HOME/generated/* .
     echo "GIT ADD"
@@ -163,7 +162,7 @@ function git_commit() {
     else
         echo "NOTHING TO COMMIT"
     fi
-    
+
     echo "GIT PULL" 
     git pull
 }
