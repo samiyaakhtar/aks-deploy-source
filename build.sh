@@ -90,13 +90,19 @@ function install_fab() {
 
 # Run fab generate
 function fab_generate() {
-    IFS=',' read -ra ENV <<< "$FAB_ENVS"
-    for i in "${ENV[@]}"; do
-        echo "FAB GENERATE $i"
-        fab generate $i --no-validation
-    done
+    # For backwards compatibility, support pipelines that have not set this variable
+    if [ -z "$FAB_ENVS" ]; then 
+        echo "FAB_ENVS is not set"; 
+        fab generate prod --no-validation
+    else 
+        echo "FAB_ENVS is set to $FAB_ENVS"; 
+        IFS=',' read -ra ENV <<< "$FAB_ENVS"
+        for i in "${ENV[@]}"; do
+            echo "FAB GENERATE $i"
+            fab generate $i --no-validation
+        done
+    fi
 
-    # fab generate prod --no-validation
     echo "FAB GENERATE COMPLETED"
     
     set +e
