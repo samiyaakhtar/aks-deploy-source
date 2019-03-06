@@ -150,7 +150,7 @@ function git_commit() {
     echo "COPY YAML FILES TO REPO DIRECTORY..."
     cp -r $HOME/generated/* .
     echo "GIT ADD"
-    git add *
+    git add -A
 
     #Set git identity 
     git config user.email "admin@azuredevops.com"
