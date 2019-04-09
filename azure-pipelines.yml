@@ -34,4 +34,4 @@ steps:
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
     REPO: $(MANIFEST_REPO)
     BRANCH_NAME: $(Build.SourceBranchName)
-    AUTHOR: $(Build.RequestedForEmail)
+    AUTHOR: $(Build.RequestedForId)

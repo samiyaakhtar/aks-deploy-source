@@ -147,6 +147,8 @@ function git_commit() {
     git add -A
 
     #Set git identity
+    echo "user.email = admin@azuredevops.com"
+    echo "user.name = $AUTHOR"
     git config user.email "admin@azuredevops.com"
     git config user.name "$AUTHOR"
 
