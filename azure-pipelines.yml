@@ -33,4 +33,4 @@ steps:
   env:
     ACCESS_TOKEN_SECRET: $(ACCESS_TOKEN)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
-    AKS_MANIFEST_REPO: $(AKS_MANIFEST_REPO)
+    REPO: $(AKS_MANIFEST_REPO)
