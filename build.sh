@@ -148,7 +148,7 @@ function git_commit() {
 
     #Set git identity
     git config user.email "admin@azuredevops.com"
-    git config user.name "Automated Account $(Build.RequestedFor)"
+    git config user.name "$AUTHOR"
 
     if [[ `git status --porcelain` ]]; then
         echo "GIT COMMIT"
