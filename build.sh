@@ -23,7 +23,7 @@ function init() {
 
 # Initialize Helm
 function helm_init() {
-    echo "RUN HELM INIT"
+    echo "HELM INIT"
     helm init
     echo "HELM ADD INCUBATOR"
     if [ -z "$HELM_CHART_REPO" ] || [ -z "$HELM_CHART_REPO_URL" ];
@@ -154,7 +154,7 @@ function git_commit() {
 
     #Set git identity 
     git config user.email "admin@azuredevops.com"
-    git config user.name "Automated Account"
+    git config user.name "Automated Account $(Build.RequestedFor)"
 
     if [[ `git status --porcelain` ]]; then
         echo "GIT COMMIT"
