@@ -14,7 +14,7 @@ steps:
 #     chmod +x ./build.sh
 #   displayName: Download Bedrock orchestration script
 #   env:
-#     BEDROCK_BUILD_SCRIPT: https://raw.githubusercontent.com/Microsoft/bedrock/services/gitops/azure-devops/build.sh
+#     BEDROCK_BUILD_SCRIPT: https://raw.githubusercontent.com/Microsoft/bedrock/master/gitops/azure-devops/build.sh
 
 - task: ShellScript@2
   displayName: Validate fabrikate definitions
@@ -23,7 +23,6 @@ steps:
   condition: eq(variables['Build.Reason'], 'PullRequest')
   env:
     VERIFY_ONLY: 1
-    ACCESS_TOKEN_SECRET: $(ACCESS_TOKEN)
 
 - task: ShellScript@2
   displayName: Transform fabrikate definitions and publish to YAML manifests to repo
@@ -33,4 +32,5 @@ steps:
   env:
     ACCESS_TOKEN_SECRET: $(ACCESS_TOKEN)
     COMMIT_MESSAGE: $(Build.SourceVersionMessage)
-    REPO: $(AKS_MANIFEST_REPO)
+    REPO: $(MANIFEST_REPO)
+    BRANCH_NAME: $(Build.SourceBranchName)
